@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            background-image: url('');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        .copy_p{
+            max-width: 300px;
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+    <input type="file" class="input">
+    <p class="copy_p"></p>
+</body>
+<script>
+//chatimage_file chatPlace...
+const chatImage_file=document.querySelector('.input');
+const copy_p=document.querySelector('.copy_p');
+
+chatImage_file.addEventListener('change',(e)=>{
+    let files=e.target.files;
+    
+    if(window.File&&window.FileReader&&window.Blob&&window.FileList){
+        
+        for(let i=0;i<files.length;i++){
+            
+            if(!files[i].type.match("image")) continue;
+            let picRender=new FileReader();
+            picRender.addEventListener('load',(event)=>{
+                const picFile=event.target;
+                console.log(picFile.result)
+                copy_p.innerText=picFile.result;
+            })
+        picRender.readAsDataURL(files[i]);
+        }
+        
+    }else{
+        alert("your browser don't support file multipul image")
+    }
+    
+})
+</script>
+</html>
